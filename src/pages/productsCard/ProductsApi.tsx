@@ -9,7 +9,7 @@ export const api = createApi({
     getProducts: builder.query<any, void>({ // CHANGE ANY 
       query: () => "/products",
     }),
-    getProductById: builder.query<any, string | number>({
+    getProductById: builder.query<any, string | number>({ // CHANGE ANY 0
       query: (id) => `/products/${id}`,
     }),
     addProduct: builder.mutation<any, void>({ // CHANGE ANY TOO

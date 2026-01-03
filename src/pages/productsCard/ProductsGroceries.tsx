@@ -70,6 +70,7 @@ export default function ProductsGroceries() {
                 component="img"
                 image={p.thumbnail}
                 title={p.title}
+                onClick={() => navigate(`/products/${p.id}`)}
               />
               <CardContent
                 sx={{

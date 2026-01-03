@@ -36,7 +36,7 @@ export default function ProductCard() {
         padding: "30px",
       }}
     >
-      {data.products.map((p: any) => (
+      {data.products.map((p: any) => ( // CHANGE ANY 
         <Card
           key={p.id}
           sx={{

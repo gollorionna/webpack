@@ -7,10 +7,12 @@ import Container from "@mui/material/Container";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import { useParams } from "react-router-dom";
 import { useGetProductByIdQuery } from "./ProductsApi";
+import { useBasket, type IBasketItem } from "@/context/BasketContext";
 
 function ProductCardDetails() {
   const { id } = useParams();
   const { data, isLoading } = useGetProductByIdQuery(id);
+  const { addItem, items } = useBasket();
 
   if (isLoading) return <p>Loading...</p>;
 
@@ -19,12 +21,24 @@ function ProductCardDetails() {
       <Typography gutterBottom variant="h5" component="div">
         {data.title}
       </Typography>
-      <CardMedia
-        sx={{ height: 400, objectFit: "contain" }}
-        component="img"
-        image={data.images}
-        title={data.title}
-      />
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "center",
+          pt: 4,
+        }}
+      >
+        {data.images &&
+          data.images.map((img: string) => (
+            <CardMedia
+              sx={{ height: 400, objectFit: "contain" }}
+              component="img"
+              image={img}
+              title={data.title}
+            />
+          ))}
+      </Box>
       <Box sx={{ p: 2 }}>
         <Stack
           direction="row"
@@ -37,7 +51,20 @@ function ProductCardDetails() {
         <Typography variant="body1">{data.description}</Typography>
       </Box>
       <Box sx={{ p: 2 }}>
-        <Fab variant="extended" size="medium" color="primary">
+        <Fab
+          variant="extended"
+          size="medium"
+          color="primary"
+          aria-label="add to basket"
+          onClick={() =>
+            addItem({
+              id: data.id,
+              title: data.title,
+              price: data.price,
+              thumbnail: data.thumbnail,
+            })
+          }
+        >0
           <AddShoppingCartIcon sx={{ mr: 1 }} />
           Add to Basket
         </Fab>

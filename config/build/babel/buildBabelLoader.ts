@@ -5,7 +5,7 @@ export function buildBabelLoader({ mode }: BuildOptions) {
   const isDev = mode === "development";
   const isProd = mode === "production";
 
-  const plugins: any[] = [];
+  const plugins: any[] = []; // CHANGE ANY 
 
   if (isDev) {
     plugins.push(require.resolve("react-refresh/babel"));
