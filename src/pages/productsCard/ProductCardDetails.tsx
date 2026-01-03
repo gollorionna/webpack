@@ -39,7 +39,7 @@ function ProductCardDetails() {
       <Box sx={{ p: 2 }}>
         <Fab variant="extended" size="medium" color="primary">
           <AddShoppingCartIcon sx={{ mr: 1 }} />
-          Add to cart
+          Add to Basket
         </Fab>
       </Box>
     </Container>

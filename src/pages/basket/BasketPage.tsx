@@ -7,8 +7,8 @@ import Paper from "@mui/material/Paper";
 import Divider from "@mui/material/Divider";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { Link } from "react-router-dom";
-import { useBasket } from "@/hooks/useBasket";
 import BasketItem from "./BasketItem";
+import { useBasket, type IBasketItem } from "@/context/BasketContext";
 
 function BasketPage() {
   const {
@@ -60,7 +60,7 @@ function BasketPage() {
       >
         {/* Список товаров */}
         <Box sx={{ flexGrow: 1 }}>
-          {items.map((item) => (
+          {items.map((item: IBasketItem) => (
             <BasketItem
               key={item.id}
               item={item}

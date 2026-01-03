@@ -1,10 +1,11 @@
 import { createRoot } from "react-dom/client";
 import App from "./components/App";
 import { StrictMode } from "react";
-import {  ThemeProvider, createTheme  } from "@mui/material";
+import { ThemeProvider, createTheme } from "@mui/material";
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
-import { store } from './store/store'
+import { store } from "./store/store";
+import { BasketProvider } from "./context/BasketContext";
 
 const theme = createTheme({
   palette: {
@@ -31,16 +32,17 @@ const theme = createTheme({
   },
 });
 
-
 const root = createRoot(document.getElementById("root"));
 
 root.render(
   <StrictMode>
     <BrowserRouter>
       <Provider store={store}>
-      <ThemeProvider theme={theme}>
-        <App />
-      </ThemeProvider>
+        <BasketProvider>
+          <ThemeProvider theme={theme}>
+            <App />
+          </ThemeProvider>
+        </BasketProvider>
       </Provider>
     </BrowserRouter>
   </StrictMode>

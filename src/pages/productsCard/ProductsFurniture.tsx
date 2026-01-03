@@ -8,12 +8,14 @@ import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { useGetProductsQuery } from "./ProductsApi";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useBasket, type IBasketItem } from "@/context/BasketContext";
 
 type Product = {
-  id: string;
+  id: number;
   category: string;
   thumbnail: string;
   title: string;
@@ -22,9 +24,14 @@ type Product = {
 };
 
 export default function ProductsFurniture() {
-  const [liked, setLiked] = useState<string[]>([]);
+  const [liked, setLiked] = useState<number[]>([]);
   const { data, isLoading, error } = useGetProductsQuery();
   const navigate = useNavigate();
+
+  const { addItem, items } = useBasket();
+
+  const isInBasket = (id: number) =>
+    items.some((item: IBasketItem) => item.id === id);
 
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>Error loading data</p>;
@@ -115,22 +122,40 @@ export default function ProductsFurniture() {
                 </Typography>
               </CardContent>
               <CardActions sx={{ mt: "auto" }}>
-                <IconButton
-                  aria-label="add to favorites"
-                  onClick={() =>
-                    setLiked((prev) =>
-                      prev.includes(p.id)
-                        ? prev.filter((id) => id !== p.id)
-                        : [...prev, p.id]
-                    )
-                  }
-                >
-                  <FavoriteIcon
-                    sx={{
-                      color: liked.includes(p.id) ? "red" : "grey",
-                    }}
-                  />
-                </IconButton>
+                <Box>
+                  <IconButton
+                    aria-label="add to favorites"
+                    onClick={() =>
+                      setLiked((prev) =>
+                        prev.includes(p.id)
+                          ? prev.filter((id) => id !== p.id)
+                          : [...prev, p.id]
+                      )
+                    }
+                  >
+                    <FavoriteIcon
+                      sx={{
+                        color: liked.includes(p.id) ? "red" : "grey",
+                      }}
+                    />
+                  </IconButton>
+
+                  <IconButton
+                    aria-label="add to cart"
+                    onClick={() =>
+                      addItem({
+                        id: p.id,
+                        title: p.title,
+                        price: p.price,
+                        thumbnail: p.thumbnail,
+                      })
+                    }
+                    color={isInBasket(p.id) ? "success" : "default"}
+                  >
+                    <ShoppingCartIcon />
+                  </IconButton>
+                </Box>
+
                 <Button
                   size="small"
                   onClick={() => navigate(`/products/${p.id}`)}

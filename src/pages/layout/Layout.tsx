@@ -23,6 +23,7 @@ import { Link, Outlet, useNavigate } from "react-router-dom";
 
 import { useAppDispatch, useAppSelector } from "../../hooks/redux.hook";
 import { logout, selectIsAuth } from "../../store/auth";
+import { useBasket } from "@/context/BasketContext";
 
 const drawerWidth = 240;
 
@@ -76,6 +77,7 @@ function Layout() {
   const dispatch = useAppDispatch();
 
   const isAuth = useAppSelector(selectIsAuth);
+  const { totalItems } = useBasket();
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -145,7 +147,7 @@ function Layout() {
               height: "70px",
             }}
           >
-            <StyledBadge badgeContent={4} color="secondary">
+            <StyledBadge badgeContent={totalItems} color="secondary">
               <ShoppingCartIcon sx={{ mr: 0.5 }} />
             </StyledBadge>
           </Button>
@@ -257,7 +259,7 @@ function Layout() {
         component="main"
         sx={{
           flexGrow: 1,
-          pt: "64px", // высота AppBar (важно!)
+          pt: "70px",
           overflowY: "auto",
         }}
       >

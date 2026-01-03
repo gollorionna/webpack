@@ -7,7 +7,7 @@ import IconButton from "@mui/material/IconButton";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import DeleteIcon from "@mui/icons-material/Delete";
-import type { IBasketItem } from "@/hooks/useBasket";
+import type { IBasketItem } from "@/context/BasketContext";
 
 interface BasketItemProps {
   item: IBasketItem;
