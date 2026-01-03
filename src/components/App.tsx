@@ -1,6 +1,5 @@
 import "./App.module.scss";
 import AuthPage from "@/pages/authentication/AuthPage";
-import CartPage from "@/pages/cart/CartPage";
 import { Route, Routes } from "react-router-dom";
 import ProductCardPage from "@/pages/productsCard/ProductCardPage";
 import ProductCardDetails from "@/pages/productsCard/ProductCardDetails";
@@ -10,6 +9,9 @@ import ProductsBeauty from "@/pages/productsCard/ProductsBeauty";
 import ProductsFragrances from "@/pages/productsCard/ProductsFragrances";
 import ProductsFurniture from "@/pages/productsCard/ProductsFurniture";
 import ProductsGroceries from "@/pages/productsCard/ProductsGroceries";
+import { LazyBasketPage } from "@/pages/basket/BasketPage.lazy";
+import { Suspense } from "react";
+import CircularProgress from "@mui/material/CircularProgress";
 
 export default function App() {
   return (
@@ -27,7 +29,14 @@ export default function App() {
           <Route path=":id" element={<ProductCardDetails />} />
         </Route>
 
-        <Route path="cart" element={<CartPage />} />
+        <Route
+          path="cart"
+          element={
+            <Suspense fallback={<CircularProgress />}>
+              <LazyBasketPage />
+            </Suspense>
+          }
+        />
       </Route>
 
       <Route path="auth" element={<AuthPage />} />
