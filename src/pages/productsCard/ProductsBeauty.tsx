@@ -76,6 +76,7 @@ export default function ProductsBeauty() {
                 sx={{
                   flexGrow: 1,
                   display: "flex",
+
                   flexDirection: "column",
                 }}
               >
@@ -122,7 +123,13 @@ export default function ProductsBeauty() {
                     : p.description}
                 </Typography>
               </CardContent>
-              <CardActions sx={{ mt: "auto" }}>
+              <CardActions
+                sx={{
+                  mt: "auto",
+                  display: "flex",
+                  justifyContent: "space-between",
+                }}
+              >
                 <Box>
                   <IconButton
                     aria-label="add to favorites"

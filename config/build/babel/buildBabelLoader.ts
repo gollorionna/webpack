@@ -1,11 +1,12 @@
 import { BuildOptions } from "../types/types";
 import { removeDataTestIdBabelPlugin } from "./removeDataTestIdBabelPlugin";
+import type { PluginItem } from "@babel/core";
 
 export function buildBabelLoader({ mode }: BuildOptions) {
   const isDev = mode === "development";
   const isProd = mode === "production";
 
-  const plugins: any[] = []; // CHANGE ANY 
+  const plugins: PluginItem[] = [];
 
   if (isDev) {
     plugins.push(require.resolve("react-refresh/babel"));

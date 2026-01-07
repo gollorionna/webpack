@@ -20,7 +20,8 @@ export default function ProductCard() {
   const navigate = useNavigate();
   const { addItem, items } = useBasket();
 
-  const isInBasket = (id: number) => items.some((item: IBasketItem) => item.id === id);
+  const isInBasket = (id: number) =>
+    items.some((item: IBasketItem) => item.id === id);
 
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>Error loading data</p>;
@@ -36,102 +37,110 @@ export default function ProductCard() {
         padding: "30px",
       }}
     >
-      {data.products.map((p: any) => ( // CHANGE ANY 
-        <Card
-          key={p.id}
-          sx={{
-            maxWidth: 300,
-            display: "flex",
-            flexDirection: "column",
-            "&:hover": { boxShadow: 4 },
-          }}
-        >
-          <CardMedia
-            sx={{ height: 200, objectFit: "contain" }}
-            component="img"
-            image={p.thumbnail}
-            title={p.title}
-          />
-          <CardContent
-            sx={{ flexGrow: 1, display: "flex", flexDirection: "column" }}
+      {data.products.map(
+        (
+          p: any // CHANGE ANY
+        ) => (
+          <Card
+            key={p.id}
+            sx={{
+              maxWidth: 300,
+              display: "flex",
+              flexDirection: "column",
+              "&:hover": { boxShadow: 4 },
+            }}
           >
-            <Typography
-              gutterBottom
-              variant="h6"
-              component="div"
-              sx={{
-                fontSize: "1.1rem",
-                display: "-webkit-box",
-                WebkitLineClamp: 2,
-                WebkitBoxOrient: "vertical",
-                overflow: "hidden",
-                minHeight: "2.6em",
-              }}
+            <CardMedia
+              sx={{ height: 200, objectFit: "contain" }}
+              component="img"
+              image={p.thumbnail}
+              title={p.title}
+              onClick={() => navigate(`/products/${p.id}`)}
+            />
+            <CardContent
+              sx={{ flexGrow: 1, display: "flex", flexDirection: "column" }}
             >
-              {p.title}
-            </Typography>
-            <Typography
-              variant="subtitle1"
-              sx={{ fontSize: "1.1rem", fontWeight: 600, mt: 1 }}
-            >
-              {p.price}$
-            </Typography>
-            <Typography
-              variant="body2"
-              sx={{
-                color: "text.secondary",
-                mt: 1,
-                display: "-webkit-box",
-                WebkitLineClamp: 3,
-                WebkitBoxOrient: "vertical",
-                overflow: "hidden",
-                flexGrow: 1,
-              }}
-            >
-              {p.description.length > 100
-                ? p.description.substring(0, 100) + "..."
-                : p.description}
-            </Typography>
-          </CardContent>
-          <CardActions sx={{ mt: "auto", justifyContent: "space-between" }}>
-            <Box>
-              <IconButton
-                aria-label="add to favorites"
-                onClick={() =>
-                  setLiked((prev) =>
-                    prev.includes(p.id)
-                      ? prev.filter((id) => id !== p.id)
-                      : [...prev, p.id]
-                  )
-                }
+              <Typography
+                gutterBottom
+                variant="h6"
+                component="div"
+                sx={{
+                  fontSize: "1.1rem",
+                  display: "-webkit-box",
+                  WebkitLineClamp: 2,
+                  WebkitBoxOrient: "vertical",
+                  overflow: "hidden",
+                  minHeight: "2.6em",
+                }}
               >
-                <FavoriteIcon
-                  sx={{ color: liked.includes(p.id) ? "red" : "grey" }}
-                />
-              </IconButton>
-
-              <IconButton
-                aria-label="add to cart"
-                onClick={() =>
-                  addItem({
-                    id: p.id,
-                    title: p.title,
-                    price: p.price,
-                    thumbnail: p.thumbnail,
-                  })
-                }
-                color={isInBasket(p.id) ? "success" : "default"}
+                {p.title}
+              </Typography>
+              <Typography
+                variant="subtitle1"
+                sx={{ fontSize: "1.1rem", fontWeight: 600, mt: 1 }}
               >
-                <ShoppingCartIcon />
-              </IconButton>
-            </Box>
+                {p.price}$
+              </Typography>
+              <Typography
+                variant="body2"
+                sx={{
+                  color: "text.secondary",
+                  mt: 1,
+                  display: "-webkit-box",
+                  WebkitLineClamp: 3,
+                  WebkitBoxOrient: "vertical",
+                  overflow: "hidden",
+                  flexGrow: 1,
+                }}
+              >
+                {p.description.length > 100
+                  ? p.description.substring(0, 100) + "..."
+                  : p.description}
+              </Typography>
+            </CardContent>
+            <CardActions sx={{ mt: "auto", justifyContent: "space-between" }}>
+              <Box>
+                <IconButton
+                  aria-label="add to favorites"
+                  onClick={() =>
+                    setLiked((prev) =>
+                      prev.includes(p.id)
+                        ? prev.filter((id) => id !== p.id)
+                        : [...prev, p.id]
+                    )
+                  }
+                >
+                  <FavoriteIcon
+                    sx={{ color: liked.includes(p.id) ? "red" : "grey" }}
+                  />
+                </IconButton>
 
-            <Button size="small" onClick={() => navigate(`/products/${p.id}`)}>
-              Learn More
-            </Button>
-          </CardActions>
-        </Card>
-      ))}
+                <IconButton
+                  aria-label="add to cart"
+                  onClick={() =>
+                    addItem({
+                      id: p.id,
+                      title: p.title,
+                      price: p.price,
+                      thumbnail: p.thumbnail,
+                    })
+                  }
+                  color={isInBasket(p.id) ? "success" : "default"}
+                >
+                  <ShoppingCartIcon />
+                </IconButton>
+              </Box>
+
+              <Button
+                size="small"
+                onClick={() => navigate(`/products/${p.id}`)}
+              >
+                Learn More
+              </Button>
+            </CardActions>
+          </Card>
+        )
+      )}
     </Box>
   );
 }

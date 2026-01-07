@@ -64,7 +64,7 @@ function ProductCardDetails() {
               thumbnail: data.thumbnail,
             })
           }
-        >0
+        >
           <AddShoppingCartIcon sx={{ mr: 1 }} />
           Add to Basket
         </Fab>
