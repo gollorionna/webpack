@@ -16,7 +16,7 @@ Users can:
 2. Navigate into the project folder:
    cd webpack
 3. Install dependencies:
-   npm install / yarn i
+   npm install 
 4. Build project:
    npm run build:dev
 5. Start project:
