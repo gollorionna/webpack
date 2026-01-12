@@ -1,22 +1,22 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "es6",
     "module": "esnext",
-    "outDir": "./dist",
+    "outDir": "./build",
     "noImplicitAny": true,
     "jsx": "react-jsx",
     "allowJs": true,
-    "moduleResolution": "bundler",
+    "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
+    "strict": true,
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
     }
   },
   "ts-node": {
-    "compilerOptions": {
-      "module": "commonJS"
-    }
+    "esm": true,
+    "experimentalSpecifierResolution": "node"
   }
 }

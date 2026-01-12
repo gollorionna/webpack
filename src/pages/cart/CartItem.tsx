@@ -1,4 +1,3 @@
-// pages/basket/BasketItem.tsx
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
@@ -7,15 +6,15 @@ import IconButton from "@mui/material/IconButton";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import DeleteIcon from "@mui/icons-material/Delete";
-import type { IBasketItem } from "@/context/BasketContext";
+import type { ICartItem } from "@/context/types";
 
-interface BasketItemProps {
-  item: IBasketItem;
+interface CartItemProps {
+  item: ICartItem;
   onUpdateQuantity: (id: number, quantity: number) => void;
   onRemove: (id: number) => void;
 }
 
-function BasketItem({ item, onUpdateQuantity, onRemove }: BasketItemProps) {
+function CartItem({ item, onUpdateQuantity, onRemove }: CartItemProps) {
   return (
     <Card
       sx={{
@@ -73,4 +72,4 @@ function BasketItem({ item, onUpdateQuantity, onRemove }: BasketItemProps) {
   );
 }
 
-export default BasketItem;
+export default CartItem;

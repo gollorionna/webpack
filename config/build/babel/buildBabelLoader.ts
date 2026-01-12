@@ -9,7 +9,7 @@ export function buildBabelLoader({ mode }: BuildOptions) {
   const plugins: PluginItem[] = [];
 
   if (isDev) {
-    plugins.push(require.resolve("react-refresh/babel"));
+    plugins.push("react-refresh/babel");
   }
 
   if (isProd) {

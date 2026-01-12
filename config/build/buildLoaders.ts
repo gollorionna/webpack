@@ -1,8 +1,6 @@
 import type { ModuleOptions } from "webpack";
-import { BuildOptions } from "./types/types";
+import { BuildOptions } from "./types/types.js";
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
-import ReactRefreshTypeScript from "react-refresh-typescript";
-import loader from "mini-css-extract-plugin/types/loader";
 import { buildBabelLoader } from "./babel/buildBabelLoader";
 
 export function buildLoaders(options: BuildOptions): ModuleOptions["rules"] {
@@ -21,15 +19,6 @@ export function buildLoaders(options: BuildOptions): ModuleOptions["rules"] {
         options: { icon: true },
       },
     ],
-  };
-
-  const cssLoaderWithModules = {
-    loader: "css-loader",
-    options: {
-      modules: {
-        localIdentName: isDev ? "[path][name]__[local]" : "[hash:base64:8]",
-      },
-    },
   };
 
   const scssLoader = {
@@ -52,9 +41,9 @@ export function buildLoaders(options: BuildOptions): ModuleOptions["rules"] {
       {
         loader: "ts-loader",
         options: {
-          transpileOnly: false
-          },
+          transpileOnly: false,
         },
+      },
     ],
   };
 

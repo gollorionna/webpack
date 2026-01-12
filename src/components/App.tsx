@@ -9,7 +9,7 @@ import ProductsBeauty from "@/pages/productsCard/ProductsBeauty";
 import ProductsFragrances from "@/pages/productsCard/ProductsFragrances";
 import ProductsFurniture from "@/pages/productsCard/ProductsFurniture";
 import ProductsGroceries from "@/pages/productsCard/ProductsGroceries";
-import { LazyBasketPage } from "@/pages/basket/BasketPage.lazy";
+import { LazyCartPage } from "@/pages/cart/CartPage.lazy";
 import { Suspense } from "react";
 import CircularProgress from "@mui/material/CircularProgress";
 
@@ -33,7 +33,7 @@ export default function App() {
           path="cart"
           element={
             <Suspense fallback={<CircularProgress />}>
-              <LazyBasketPage />
+              <LazyCartPage />
             </Suspense>
           }
         />

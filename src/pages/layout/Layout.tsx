@@ -18,12 +18,11 @@ import ListItemText from "@mui/material/ListItemText";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import LogoutIcon from "@mui/icons-material/Logout";
 import "./Layout.scss";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Link, Outlet, useNavigate } from "react-router-dom";
-
 import { useAppDispatch, useAppSelector } from "../../hooks/redux.hook";
 import { logout, selectIsAuth } from "../../store/auth";
-import { useBasket } from "@/context/BasketContext";
+import { useCart } from "@/context/CartContext";
 
 const drawerWidth = 240;
 
@@ -77,7 +76,7 @@ function Layout() {
   const dispatch = useAppDispatch();
 
   const isAuth = useAppSelector(selectIsAuth);
-  const { totalItems } = useBasket();
+  const { totalItems } = useCart();
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -91,11 +90,6 @@ function Layout() {
     dispatch(logout());
     navigate("/auth");
   };
-
-  useEffect(() => {
-    if (!isAuth) {
-    }
-  }, [isAuth]);
 
   return (
     <Box

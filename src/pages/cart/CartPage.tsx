@@ -1,4 +1,3 @@
-// pages/basket/BasketPage.tsx
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
@@ -7,19 +6,20 @@ import Paper from "@mui/material/Paper";
 import Divider from "@mui/material/Divider";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { Link } from "react-router-dom";
-import BasketItem from "./BasketItem";
-import { useBasket, type IBasketItem } from "@/context/BasketContext";
+import CartItem from "./CartItem";
+import { useCart } from "@/context/CartContext";
+import type { ICartItem } from "@/context/types";
 
-function BasketPage() {
+function CartPage() {
   const {
     items,
     updateQuantity,
     removeItem,
-    clearBasket,
+    clearCart,
     totalItems,
     totalPrice,
     isEmpty,
-  } = useBasket();
+  } = useCart();
 
   if (isEmpty) {
     return (
@@ -28,10 +28,10 @@ function BasketPage() {
           sx={{ fontSize: 80, color: "text.secondary", mb: 2 }}
         />
         <Typography variant="h4" gutterBottom>
-          Корзина пуста
+          Cart is empty
         </Typography>
         <Typography color="text.secondary" sx={{ mb: 4 }}>
-          Добавьте товары, чтобы оформить заказ
+          Add products to place an order
         </Typography>
         <Button
           component={Link}
@@ -39,7 +39,7 @@ function BasketPage() {
           variant="contained"
           size="large"
         >
-          Перейти к товарам
+          Go to products
         </Button>
       </Container>
     );
@@ -48,7 +48,7 @@ function BasketPage() {
   return (
     <Container maxWidth="lg" sx={{ py: 4 }}>
       <Typography variant="h4" component="h1" gutterBottom>
-        Корзина
+        Cart
       </Typography>
 
       <Box
@@ -58,10 +58,9 @@ function BasketPage() {
           flexDirection: { xs: "column", md: "row" },
         }}
       >
-        {/* Список товаров */}
         <Box sx={{ flexGrow: 1 }}>
-          {items.map((item: IBasketItem) => (
-            <BasketItem
+          {items.map((item: ICartItem) => (
+            <CartItem
               key={item.id}
               item={item}
               onUpdateQuantity={updateQuantity}
@@ -72,14 +71,13 @@ function BasketPage() {
           <Button
             variant="outlined"
             color="error"
-            onClick={clearBasket}
+            onClick={clearCart}
             sx={{ mt: 2 }}
           >
-            Очистить корзину
+            Clear cart
           </Button>
         </Box>
 
-        {/* Итого */}
         <Paper
           elevation={3}
           sx={{
@@ -91,25 +89,25 @@ function BasketPage() {
           }}
         >
           <Typography variant="h5" gutterBottom>
-            Итого
+            Total
           </Typography>
 
           <Box sx={{ display: "flex", justifyContent: "space-between", mb: 1 }}>
             <Typography color="text.secondary">
-              Товары ({totalItems} шт.)
+              Products ({totalItems} pcs.)
             </Typography>
             <Typography>${totalPrice.toFixed(2)}</Typography>
           </Box>
 
           <Box sx={{ display: "flex", justifyContent: "space-between", mb: 1 }}>
-            <Typography color="text.secondary">Доставка</Typography>
-            <Typography color="success.main">Бесплатно</Typography>
+            <Typography color="text.secondary">Delivery</Typography>
+            <Typography color="success.main">Free</Typography>
           </Box>
 
           <Divider sx={{ my: 2 }} />
 
           <Box sx={{ display: "flex", justifyContent: "space-between", mb: 3 }}>
-            <Typography variant="h6">К оплате</Typography>
+            <Typography variant="h6">To pay</Typography>
             <Typography variant="h6" color="primary">
               ${totalPrice.toFixed(2)}
             </Typography>
@@ -121,7 +119,7 @@ function BasketPage() {
             size="large"
             sx={{ bgcolor: "green", "&:hover": { bgcolor: "darkgreen" } }}
           >
-            Оформить заказ
+            Place order
           </Button>
         </Paper>
       </Box>
@@ -129,4 +127,4 @@ function BasketPage() {
   );
 }
 
-export default BasketPage;
+export default CartPage;

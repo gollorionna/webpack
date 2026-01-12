@@ -1,4 +1,3 @@
-// context/BasketContext.tsx
 import {
   createContext,
   useContext,
@@ -7,34 +6,14 @@ import {
   useCallback,
   ReactNode,
 } from "react";
+import type { CartContextType, ICartItem } from "./types";
+import { CART_KEY } from "./types";
 
-export interface IBasketItem {
-  id: number;
-  title: string;
-  price: number;
-  thumbnail: string;
-  quantity: number;
-}
+const CartContext = createContext<CartContextType | null>(null);
 
-interface BasketContextType {
-  items: IBasketItem[];
-  addItem: (product: Omit<IBasketItem, "quantity">) => void;
-  removeItem: (id: number) => void;
-  updateQuantity: (id: number, quantity: number) => void;
-  clearBasket: () => void;
-  totalItems: number;
-  totalPrice: number;
-  isEmpty: boolean;
-}
-
-const BasketContext = createContext<BasketContextType | null>(null);
-
-const BASKET_KEY = "basket";
-
-export function BasketProvider({ children }: { children: ReactNode }) {
-  const [items, setItems] = useState<IBasketItem[]>(() => {
-    // Инициализация из localStorage сразу
-    const saved = localStorage.getItem(BASKET_KEY);
+export function CartProvider({ children }: { children: ReactNode }) {
+  const [items, setItems] = useState<ICartItem[]>(() => {
+    const saved = localStorage.getItem(CART_KEY);
     if (saved) {
       try {
         return JSON.parse(saved);
@@ -45,12 +24,11 @@ export function BasketProvider({ children }: { children: ReactNode }) {
     return [];
   });
 
-  // Сохранение в localStorage при изменении
   useEffect(() => {
-    localStorage.setItem(BASKET_KEY, JSON.stringify(items));
+    localStorage.setItem(CART_KEY, JSON.stringify(items));
   }, [items]);
 
-  const addItem = useCallback((product: Omit<IBasketItem, "quantity">) => {
+  const addItem = useCallback((product: Omit<ICartItem, "quantity">) => {
     setItems((prev) => {
       const existing = prev.find((item) => item.id === product.id);
       if (existing) {
@@ -81,7 +59,7 @@ export function BasketProvider({ children }: { children: ReactNode }) {
     [removeItem]
   );
 
-  const clearBasket = useCallback(() => {
+  const clearCart = useCallback(() => {
     setItems([]);
   }, []);
 
@@ -92,28 +70,28 @@ export function BasketProvider({ children }: { children: ReactNode }) {
   );
 
   return (
-    <BasketContext.Provider
+    <CartContext.Provider
       value={{
         items,
         addItem,
         removeItem,
         updateQuantity,
-        clearBasket,
+        clearCart,
         totalItems,
         totalPrice,
         isEmpty: items.length === 0,
       }}
     >
       {children}
-    </BasketContext.Provider>
+    </CartContext.Provider>
   );
 }
 
-// Хук для использования контекста
-export function useBasket() {
-  const context = useContext(BasketContext);
+// eslint-disable-next-line react-refresh/only-export-components
+export const useCart = () => {
+  const context = useContext(CartContext);
   if (!context) {
-    throw new Error("useBasket must be used within BasketProvider");
+    throw new Error("useCart must be used within CartProvider");
   }
   return context;
-}
+};

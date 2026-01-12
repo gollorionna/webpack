@@ -1,12 +1,14 @@
-import webpack, { Configuration, DefinePlugin } from "webpack";
+import webpack from "webpack";
+import { Configuration } from "webpack";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
-import { BuildOptions } from "./types/types";
+import { BuildOptions } from "./types/types.js";
 import { BundleAnalyzerPlugin } from "webpack-bundle-analyzer";
 import ForkTsCheckerWebpackPlugin from "fork-ts-checker-webpack-plugin";
 import ReactRefreshWebpackPlugin from "@pmmmwh/react-refresh-webpack-plugin";
 import CopyPlagin from "copy-webpack-plugin";
 import path from "path";
+const {DefinePlugin} = webpack;
 
 export function buildPlugins({
   mode,

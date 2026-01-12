@@ -2,10 +2,10 @@ import { createRoot } from "react-dom/client";
 import App from "./components/App";
 import { StrictMode } from "react";
 import { ThemeProvider, createTheme } from "@mui/material";
-import { BrowserRouter } from "react-router-dom";
+import { HashRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import { store } from "./store/store";
-import { BasketProvider } from "./context/BasketContext";
+import { CartProvider } from "./context/CartContext";
 
 const theme = createTheme({
   palette: {
@@ -32,18 +32,18 @@ const theme = createTheme({
   },
 });
 
-const root = createRoot(document.getElementById("root"));
+const root = createRoot(document.getElementById("root")!);
 
 root.render(
   <StrictMode>
-    <BrowserRouter>
+    <HashRouter>
       <Provider store={store}>
-        <BasketProvider>
+        <CartProvider>
           <ThemeProvider theme={theme}>
             <App />
           </ThemeProvider>
-        </BasketProvider>
+        </CartProvider>
       </Provider>
-    </BrowserRouter>
+    </HashRouter>
   </StrictMode>
 );

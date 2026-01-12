@@ -12,7 +12,8 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { useGetProductsQuery } from "./ProductsApi";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useBasket, type IBasketItem } from "@/context/BasketContext";
+import { useCart } from "@/context/CartContext";
+import type { ICartItem } from "@/context/types";
 
 type Product = {
   id: number;
@@ -28,13 +29,13 @@ export default function ProductsFurniture() {
   const { data, isLoading, error } = useGetProductsQuery();
   const navigate = useNavigate();
 
-  const { addItem, items } = useBasket();
+  const { addItem, items } = useCart();
 
-  const isInBasket = (id: number) =>
-    items.some((item: IBasketItem) => item.id === id);
+  const isInCart = (id: number) =>
+    items.some((item: ICartItem) => item.id === id);
 
   if (isLoading) return <p>Loading...</p>;
-  if (error) return <p>Error loading data</p>;
+  if (error || !data) return <p>Error loading data</p>;
   return (
     <Container
       sx={{
@@ -157,7 +158,7 @@ export default function ProductsFurniture() {
                         thumbnail: p.thumbnail,
                       })
                     }
-                    color={isInBasket(p.id) ? "success" : "default"}
+                    color={isInCart(p.id) ? "success" : "default"}
                   >
                     <ShoppingCartIcon />
                   </IconButton>
