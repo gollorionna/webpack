@@ -38,15 +38,13 @@ function ProductCardDetails() {
           gap: 2,
         }}
       >
-        {data.images?.map((img: string, index: number) => (
           <CardMedia
-            key={index}
+            
             sx={{ height: 400, objectFit: 'contain' }}
             component="img"
-            image={img}
+            image={data.images?.[0]}
             title={data.title}
           />
-        ))}
       </Box>
 
       <Box sx={{ p: 2 }}>
