@@ -5,7 +5,6 @@ import { ThemeProvider, createTheme } from "@mui/material";
 import { HashRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import { store } from "./store/store";
-import { CartProvider } from "./context/CartContext";
 
 const theme = createTheme({
   palette: {
@@ -38,11 +37,9 @@ root.render(
   <StrictMode>
     <HashRouter>
       <Provider store={store}>
-        <CartProvider>
           <ThemeProvider theme={theme}>
             <App />
           </ThemeProvider>
-        </CartProvider>
       </Provider>
     </HashRouter>
   </StrictMode>

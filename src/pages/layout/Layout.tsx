@@ -22,7 +22,6 @@ import { useState } from "react";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux.hook";
 import { logout, selectIsAuth } from "../../store/auth";
-import { useCart } from "@/context/CartContext";
 
 const drawerWidth = 240;
 
@@ -75,8 +74,10 @@ function Layout() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
+  const cart = useAppSelector((state) => state.cart.entity);
+  const totalItems = cart?.totalQuantity ?? 0;
+
   const isAuth = useAppSelector(selectIsAuth);
-  const { totalItems } = useCart();
 
   const handleDrawerOpen = () => {
     setOpen(true);

@@ -12,7 +12,7 @@ import IconButton from "@mui/material/IconButton";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import CircularProgress from "@mui/material/CircularProgress";
-import { useLoginMutation } from "./AuthApi";
+import { useLoginMutation } from "@/store/api";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "@/hooks/redux.hook";
 import { setCredentials } from "@/store/auth";

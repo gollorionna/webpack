@@ -1,12 +1,13 @@
-import Box from "@mui/material/Box";
-import Card from "@mui/material/Card";
-import CardMedia from "@mui/material/CardMedia";
-import Typography from "@mui/material/Typography";
-import IconButton from "@mui/material/IconButton";
-import AddIcon from "@mui/icons-material/Add";
-import RemoveIcon from "@mui/icons-material/Remove";
-import DeleteIcon from "@mui/icons-material/Delete";
-import type { ICartItem } from "@/context/types";
+import Box from '@mui/material/Box';
+import Card from '@mui/material/Card';
+import CardMedia from '@mui/material/CardMedia';
+import Typography from '@mui/material/Typography';
+import IconButton from '@mui/material/IconButton';
+import AddIcon from '@mui/icons-material/Add';
+import RemoveIcon from '@mui/icons-material/Remove';
+import DeleteIcon from '@mui/icons-material/Delete';
+import { ICartItem } from '@/store/types';
+
 
 interface CartItemProps {
   item: ICartItem;
@@ -18,8 +19,8 @@ function CartItem({ item, onUpdateQuantity, onRemove }: CartItemProps) {
   return (
     <Card
       sx={{
-        display: "flex",
-        alignItems: "center",
+        display: 'flex',
+        alignItems: 'center',
         p: 2,
         gap: 2,
         mb: 2,
@@ -27,7 +28,7 @@ function CartItem({ item, onUpdateQuantity, onRemove }: CartItemProps) {
     >
       <CardMedia
         component="img"
-        sx={{ width: 100, height: 100, objectFit: "cover", borderRadius: 1 }}
+        sx={{ width: 100, height: 100, objectFit: 'cover', borderRadius: 1 }}
         image={item.thumbnail}
         alt={item.title}
       />
@@ -41,27 +42,19 @@ function CartItem({ item, onUpdateQuantity, onRemove }: CartItemProps) {
         </Typography>
       </Box>
 
-      <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-        <IconButton
-          size="small"
-          onClick={() => onUpdateQuantity(item.id, item.quantity - 1)}
-        >
+      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+        <IconButton size="small" onClick={() => onUpdateQuantity(item.id, item.quantity - 1)}>
           <RemoveIcon />
         </IconButton>
 
-        <Typography sx={{ minWidth: 40, textAlign: "center" }}>
-          {item.quantity}
-        </Typography>
+        <Typography sx={{ minWidth: 40, textAlign: 'center' }}>{item.quantity}</Typography>
 
-        <IconButton
-          size="small"
-          onClick={() => onUpdateQuantity(item.id, item.quantity + 1)}
-        >
+        <IconButton size="small" onClick={() => onUpdateQuantity(item.id, item.quantity + 1)}>
           <AddIcon />
         </IconButton>
       </Box>
 
-      <Typography variant="h6" sx={{ minWidth: 80, textAlign: "right" }}>
+      <Typography variant="h6" sx={{ minWidth: 80, textAlign: 'right' }}>
         ${(item.price * item.quantity).toFixed(2)}
       </Typography>
 

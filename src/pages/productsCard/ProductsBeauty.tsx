@@ -9,11 +9,12 @@ import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import { useGetProductsQuery } from "./ProductsApi";
+import { useGetProductsQuery } from "@/store/api";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useCart } from "@/context/CartContext";
-import type { ICartItem } from "@/context/types";
+import { useDispatch, useSelector } from 'react-redux';
+import type { RootState } from '@/store/store';
+import { addToCart } from '@/store/cart';
 
 type Product = {
   id: number;
@@ -28,11 +29,10 @@ export default function ProductsBeauty() {
   const [liked, setLiked] = useState<number[]>([]);
   const { data, isLoading, error } = useGetProductsQuery();
   const navigate = useNavigate();
-  const { addItem, items } = useCart();
+  const dispatch = useDispatch();
+  const cart = useSelector((state: RootState) => state.cart.entity);
 
-  const isInCart = (id: number) =>
-    items.some((item: ICartItem) => item.id === id);
-
+  const isInCart = (id: number) => cart?.products?.some((item) => item.id === id);
   if (isLoading) return <p>Loading...</p>;
   if (error || !data) return <p>Error loading data</p>;
 
@@ -52,7 +52,7 @@ export default function ProductsBeauty() {
           p: 2,
         }}
       >
-        {data.products
+        {data
           .filter((e: Product) => e.category === "beauty")
           .map((p: Product) => (
             <Card
@@ -149,16 +149,15 @@ export default function ProductsBeauty() {
                     />
                   </IconButton>
 
-                  {/* Добавить в корзину */}
                   <IconButton
                     aria-label="add to cart"
                     onClick={() =>
-                      addItem({
+                      dispatch(addToCart({
                         id: p.id,
                         title: p.title,
                         price: p.price,
                         thumbnail: p.thumbnail,
-                      })
+                      }))
                     }
                     color={isInCart(p.id) ? "success" : "default"}
                   >
