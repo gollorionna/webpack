@@ -17,6 +17,7 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import LogoutIcon from "@mui/icons-material/Logout";
+import LoginIcon from '@mui/icons-material/Login';
 import "./Layout.scss";
 import { useState } from "react";
 import { Link, Outlet, useNavigate } from "react-router-dom";
@@ -158,23 +159,7 @@ export const Layout = () => {
                 flexDirection: "column",
               }}
             >
-              <span className="material-icons-outlined">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  enableBackground="new 0 0 24 24"
-                  height="24px"
-                  viewBox="0 0 24 24"
-                  width="24px"
-                  fill="#e3e3e3"
-                >
-                  <g>
-                    <rect fill="none" height="24" width="24" />
-                  </g>
-                  <g>
-                    <path d="M11,7L9.6,8.4l2.6,2.6H2v2h10.2l-2.6,2.6L11,17l5-5L11,7z M20,19h-8v2h8c1.1,0,2-0.9,2-2V5c0-1.1-0.9-2-2-2h-8v2h8V19z" />
-                  </g>
-                </svg>
-              </span>
+              <LoginIcon />
               <span className="login_word">Login</span>
             </Button>
           ) : (
