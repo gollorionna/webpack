@@ -6,7 +6,7 @@ import Paper from '@mui/material/Paper';
 import Divider from '@mui/material/Divider';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { Link } from 'react-router-dom';
-import {CartItem} from './CartItem';
+import { CartItem } from './CartItem';
 import type { ICartItem } from '@/store/types';
 import { useSelector, useDispatch } from 'react-redux';
 import type { RootState, AppDispatch } from '@/store/store';
@@ -57,13 +57,16 @@ export const CartPage = () => {
               key={item.id}
               item={item}
               onRemove={() => dispatch(removeFromCart(item.id))}
-              onUpdateQuantity={(qty: number) =>
-                dispatch(addToCart({ ...item, quantity: qty }))
-              }
+              onUpdateQuantity={(qty: number) => dispatch(addToCart({ ...item, quantity: qty }))}
             />
           ))}
 
-          <Button variant="outlined" color="error" onClick={() => dispatch(clearCart())} sx={{ mt: 2 }}>
+          <Button
+            variant="outlined"
+            color="error"
+            onClick={() => dispatch(clearCart())}
+            sx={{ mt: 2 }}
+          >
             Clear cart
           </Button>
         </Box>
@@ -113,5 +116,4 @@ export const CartPage = () => {
       </Box>
     </Container>
   );
-}
-
+};
