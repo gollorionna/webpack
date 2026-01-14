@@ -1,5 +1,5 @@
 import './App.module.scss';
-import AuthPage from '@/pages/authentication/AuthPage';
+import {AuthPage} from '@/pages/authentication/AuthPage';
 import { Route, Routes } from 'react-router-dom';
 import { ProductCardPage } from '@/pages/productsCard/ProductCardPage';
 import { ProductCardDetails } from '@/pages/productsCard/ProductCardDetails';

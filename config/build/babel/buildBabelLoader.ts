@@ -2,7 +2,7 @@ import { BuildOptions } from "../types/types";
 import { removeDataTestIdBabelPlugin } from "./removeDataTestIdBabelPlugin";
 import type { PluginItem } from "@babel/core";
 
-export function buildBabelLoader({ mode }: BuildOptions) {
+export const buildBabelLoader = ({ mode }: BuildOptions) => {
   const isDev = mode === "development";
   const isProd = mode === "production";
 

@@ -3,7 +3,7 @@ import { BuildOptions } from "./types/types.js";
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
 import { buildBabelLoader } from "./babel/buildBabelLoader";
 
-export function buildLoaders(options: BuildOptions): ModuleOptions["rules"] {
+export const buildLoaders = (options: BuildOptions): ModuleOptions["rules"] => {
   const isDev = options.mode === "development";
 
   const assetLoader = {

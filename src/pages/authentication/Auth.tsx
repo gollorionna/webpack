@@ -16,7 +16,7 @@ interface authHandlerProps {
   authHandler: () => void;
 }
 
-function Auth({ authHandler }: authHandlerProps) {
+export const Auth = ({ authHandler }: authHandlerProps) => {
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const handleMouseDownPassword = (
@@ -107,5 +107,3 @@ function Auth({ authHandler }: authHandlerProps) {
     </Box>
   );
 }
-
-export default Auth;

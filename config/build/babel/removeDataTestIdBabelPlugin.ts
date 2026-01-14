@@ -6,7 +6,7 @@ interface RemoveDataTestIdPluginOptions {
   props?: string[];
 }
 
-export function removeDataTestIdBabelPlugin(): PluginItem {
+export const removeDataTestIdBabelPlugin = (): PluginItem => {
   return {
     visitor: {
       Program(

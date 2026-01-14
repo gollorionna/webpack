@@ -24,10 +24,12 @@ export const ProductCard = () => {
   const dispatch = useDispatch();
   const cart = useSelector((state: RootState) => state.cart.entity);
 
+  const products = data;
+
   const isInCart = (id: number) => Boolean(cart?.products?.some((item) => item.id === id));
 
   if (isLoading) return <p>Loading...</p>;
-  if (error || !data) return <p>Error loading data</p>;
+  if (error || !products) return <p>Error loading products</p>;
 
   return (
     <Box
@@ -40,7 +42,7 @@ export const ProductCard = () => {
         padding: '30px',
       }}
     >
-      {data.map((p) => (
+      {products.map((p) => (
         <Card
           key={p.id}
           sx={{

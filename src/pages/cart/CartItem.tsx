@@ -38,8 +38,8 @@ export const CartItem = ({ item, onUpdateQuantity, onRemove }: CartItemProps) =>
           {item.title}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          ${item.price.toFixed(2)} за шт.
-        </Typography>
+          ${item.price.toFixed(2)} per item.
+        </Typography>ц
       </Box>
 
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>

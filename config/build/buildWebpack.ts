@@ -5,7 +5,7 @@ import { buildPlugins } from "./buildPlugins.js";
 import { buildResolvers } from "./buildResolvers.js";
 import { BuildOptions } from "./types/types.js";
 
-export function buildWebpack(options: BuildOptions): webpack.Configuration {
+export const buildWebpack = (options: BuildOptions): webpack.Configuration => {
   const { mode, paths } = options;
   const isDev = mode === "development";
 

@@ -10,12 +10,12 @@ import CopyPlagin from "copy-webpack-plugin";
 import path from "path";
 const {DefinePlugin} = webpack;
 
-export function buildPlugins({
+export const buildPlugins = ({
   mode,
   paths,
   analyzer,
   platform,
-}: BuildOptions): Configuration["plugins"] {
+}: BuildOptions): Configuration["plugins"] => {
   const isDev = mode === "development";
   const isProd = mode === "production";
   const plugins: Configuration["plugins"] = [

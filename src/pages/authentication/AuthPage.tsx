@@ -17,7 +17,7 @@ import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "@/hooks/redux.hook";
 import { setCredentials } from "@/store/auth";
 
-function AuthPage() {
+export const AuthPage = () => {
   const [login, { isLoading, error }] = useLoginMutation();
   const [userLogin, setUserLogin] = useState("");
   const [password, setPassword] = useState("");
@@ -152,5 +152,3 @@ function AuthPage() {
     </Box>
   );
 }
-
-export default AuthPage;
