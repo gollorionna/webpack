@@ -1,9 +1,11 @@
-.button {
-    background: #4CAF50;
-    padding: 20px;
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
-.value {
-    color: rgb(213, 0, 0);
-    font-size: 100px;
+* {
+  padding: 0;
+  margin: 0;
+  border: 0;
 }

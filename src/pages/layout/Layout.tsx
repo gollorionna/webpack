@@ -1,0 +1,258 @@
+import Box from "@mui/material/Box";
+import Toolbar from "@mui/material/Toolbar";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
+import Drawer from "@mui/material/Drawer";
+import List from "@mui/material/List";
+import Divider from "@mui/material/Divider";
+import Badge, { BadgeProps } from "@mui/material/Badge";
+import MenuIcon from "@mui/icons-material/Menu";
+import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
+import { styled, useTheme } from "@mui/material/styles";
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemText from "@mui/material/ListItemText";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import LogoutIcon from "@mui/icons-material/Logout";
+import LoginIcon from '@mui/icons-material/Login';
+import "./Layout.scss";
+import { useState } from "react";
+import { Link, Outlet, useNavigate } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../hooks/redux.hook";
+import { logout, selectIsAuth } from "../../store/auth";
+
+const drawerWidth = 240;
+
+interface AppBarProps extends MuiAppBarProps {
+  open?: boolean;
+}
+
+const AppBar = styled(MuiAppBar, {
+  shouldForwardProp: (prop) => prop !== "open",
+})<AppBarProps>(({ theme }) => ({
+  transition: theme.transitions.create(["margin", "width"], {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.leavingScreen,
+  }),
+  variants: [
+    {
+      props: ({ open }) => open,
+      style: {
+        width: `calc(100% - ${drawerWidth}px)`,
+        marginLeft: `${drawerWidth}px`,
+        transition: theme.transitions.create(["margin", "width"], {
+          easing: theme.transitions.easing.easeOut,
+          duration: theme.transitions.duration.enteringScreen,
+        }),
+      },
+    },
+  ],
+}));
+
+const StyledBadge = styled(Badge)<BadgeProps>(({ theme }) => ({
+  "& .MuiBadge-badge": {
+    right: -3,
+    top: 13,
+    border: `2px solid ${(theme.vars ?? theme).palette.background.paper}`,
+    padding: "0 4px",
+  },
+}));
+
+const DrawerHeader = styled("div")(({ theme }) => ({
+  display: "flex",
+  alignItems: "center",
+  padding: theme.spacing(0, 1),
+  ...theme.mixins.toolbar,
+  justifyContent: "flex-end",
+}));
+
+export const Layout = () => {
+  const [open, setOpen] = useState(false);
+  const theme = useTheme();
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+
+  const cart = useAppSelector((state) => state.cart.entity);
+  const totalItems = cart?.totalQuantity ?? 0;
+
+  const isAuth = useAppSelector(selectIsAuth);
+
+  const handleDrawerOpen = () => {
+    setOpen(true);
+  };
+
+  const handleDrawerClose = () => {
+    setOpen(false);
+  };
+
+  const handleLogout = () => {
+    dispatch(logout());
+    navigate("/auth");
+  };
+
+  const categories = [
+  { key: 'beauty', label: 'Beauty' },
+  { key: 'fragrances', label: 'Fragrances' },
+  { key: 'furniture', label: 'Furniture' },
+  { key: 'groceries', label: 'Groceries' },
+];
+
+  return (
+    <Box
+      sx={{
+        height: "100vh",
+        display: "flex",
+        flexDirection: "column",
+        overflow: "hidden",
+      }}
+    >
+      <AppBar position="fixed">
+        <Toolbar>
+          <IconButton
+            onClick={handleDrawerOpen}
+            size="large"
+            edge="start"
+            color="inherit"
+            aria-label="menu"
+            sx={[
+              {
+                mr: 2,
+              },
+              open && { display: "none" },
+            ]}
+          >
+            <MenuIcon />
+          </IconButton>
+          <Typography
+            variant="h6"
+            component={Link}
+            to="/"
+            sx={{
+              color: "inherit",
+              textDecoration: "none",
+              flexGrow: 1,
+            }}
+          >
+            Supershop
+          </Typography>
+          <Button
+            color="inherit"
+            component={Link}
+            to={"/cart"}
+            sx={{
+              color: "inherit",
+              textDecoration: "none",
+              display: "flex",
+              flexDirection: "column",
+              height: "70px",
+            }}
+          >
+            <StyledBadge badgeContent={totalItems} color="secondary">
+              <ShoppingCartIcon sx={{ mr: 0.5 }} />
+            </StyledBadge>
+          </Button>
+          {!isAuth ? (
+            <Button
+              color="inherit"
+              component={Link}
+              to={"/auth"}
+              sx={{
+                color: "inherit",
+                textDecoration: "none",
+                display: "flex",
+                flexDirection: "column",
+              }}
+            >
+              <LoginIcon />
+              <span className="login_word">Login</span>
+            </Button>
+          ) : (
+            <Button
+              color="inherit"
+              onClick={handleLogout}
+              sx={{
+                color: "inherit",
+                textDecoration: "none",
+                display: "flex",
+                flexDirection: "column",
+              }}
+            >
+              <LogoutIcon />
+              <span className="login_word">Logout</span>
+            </Button>
+          )}
+        </Toolbar>
+      </AppBar>
+
+      <Drawer
+        sx={{
+          width: drawerWidth,
+          flexShrink: 0,
+          "& .MuiDrawer-paper": {
+            width: drawerWidth,
+            boxSizing: "border-box",
+          },
+        }}
+        variant="temporary"
+        anchor="left"
+        open={open}
+        onClose={() => setOpen(false)}
+      >
+        <DrawerHeader>
+          <ListItemButton
+            component={Link}
+            to="/products"
+            onClick={handleDrawerClose}
+            sx={{ color: "inherit", textDecoration: "none" }}
+          >
+            <ListItemText primary={"All products"} />
+          </ListItemButton>
+
+          <IconButton onClick={handleDrawerClose}>
+            {theme.direction === "ltr" ? (
+              <ChevronLeftIcon />
+            ) : (
+              <ChevronRightIcon />
+            )}
+          </IconButton>
+        </DrawerHeader>
+        <Divider />
+        <List>
+          {categories.map((category) => (
+            <ListItem key={category.key} disablePadding>
+              <ListItemButton
+                component={Link}
+                to={`/products/category/${category.key}`}
+                onClick={handleDrawerClose}
+                sx={{
+                  color: "inherit",
+                  textDecoration: "none",
+                }}
+              >
+                <ListItemText
+                  primary={category.label}
+                />
+              </ListItemButton>
+            </ListItem>
+          ))}
+        </List>
+        <Divider />
+      </Drawer>
+
+      <Box
+        component="main"
+        sx={{
+          flexGrow: 1,
+          pt: "70px",
+          overflowY: "auto",
+        }}
+      >
+        <Outlet />
+      </Box>
+    </Box>
+  );
+}
+

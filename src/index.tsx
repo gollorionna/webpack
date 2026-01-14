@@ -1,40 +1,24 @@
-import { createRoot } from "react-dom/client";
-import { App } from "./components/App";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { LazyAbout } from "@/pages/about/About.lazy";
-import { Shop } from "@/pages/shop";
-import { Suspense } from "react";
+import { createRoot } from 'react-dom/client';
+import { App } from './components/App';
+import { StrictMode } from 'react';
+import { ThemeProvider } from '@mui/material';
+import { HashRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { store } from './store/store';
+import { theme } from './ThemeProvider';
 
-const root = document.getElementById("root");
-if (!root) {
-    throw new Error("Failed to find the root element");
-}
 
-const container = createRoot(root);
 
-const router = createBrowserRouter([
-    {   
-        path: "/", 
-        element: <App />, 
-        children: [
-            {
-                path: "/about",
-                element: 
-                    <Suspense fallback={<div>Loading About...</div>}>
-                        <LazyAbout />
-                    </Suspense>,
-            },
-            {
-                path: "/shop",
-                element: 
-                    <Suspense fallback={<div>Loading Shop...</div>}>
-                        <Shop />
-                    </Suspense>,
-            }
-        ]
-    },
-]);
+const root = createRoot(document.getElementById('root')!);
 
-container.render(
-    <RouterProvider router={router} />  
+root.render(
+  <StrictMode>
+    <HashRouter>
+      <Provider store={store}>
+        <ThemeProvider theme={theme}>
+          <App />
+        </ThemeProvider>
+      </Provider>
+    </HashRouter>
+  </StrictMode>
 );

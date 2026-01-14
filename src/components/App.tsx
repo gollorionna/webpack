@@ -1,57 +1,41 @@
-import { useState } from "react";
-import classes from './App.module.scss';
-import { Link, Outlet } from "react-router-dom";
-import About from "@/pages/about/About";
-import pngwing from '@/assets/pngwing.com.png';
-import glaza from '@/assets/glaza-zivotnyh-smotrat-krupnym-planom-nabludaa-za-prirodoi-s-generativnym-iskusstvennym-intellektom.jpg';
-import Art from '@/assets/art.svg';
-
-function TODO(a: number) {
-    console.log('TODO');
-}
-
-
-
+import './App.module.scss';
+import {AuthPage} from '@/pages/authentication/AuthPage';
+import { Route, Routes } from 'react-router-dom';
+import { ProductCardPage } from '@/pages/productsCard/ProductCardPage';
+import { ProductCardDetails } from '@/pages/productsCard/ProductCardDetails';
+import { Layout } from '@/pages/layout/Layout';
+import { MainPage } from '@/pages/mainPage/MainPage';
+import { LazyCartPage } from '@/pages/cart/CartPage.lazy';
+import { Suspense } from 'react';
+import CircularProgress from '@mui/material/CircularProgress';
+import { ProtectedRoute } from '@/components/protectedRoutes/ProtectedRoute';
+import { ProductCardList } from '@/pages/productsCard/ProductCardList';
 
 export const App = () => {
-    const [count, setCount] = useState(0);
+  return (
+    <Routes>
+      <Route element={<Layout />}>
+        <Route index element={<MainPage />} />
 
-    const increment = () => {
-        setCount(prev => prev + 1);
-    }
-    // TODO('5');
+        <Route path="products">
+          <Route index element={<ProductCardPage />} />
+          <Route path="category/:category" element={<ProductCardList />} />
+          <Route path=":id" element={<ProductCardDetails />} />
+        </Route>
 
-    // if(__PLATFORM__ === 'desktop') {
-    //     return <div>ISDESKTOPPLATFORM</div>
-    // }
-    // if(__PLATFORM__ === 'mobile') {
-    //     return <div>ISMOBILEPLATFORM</div>
-    // }
-    // if(__ENV__ === 'development') {
-    //     console.log('Development mode');
-    // }
+        <Route element={<ProtectedRoute />}>
+          <Route
+            path="cart"
+            element={
+              <Suspense fallback={<CircularProgress />}>
+                <LazyCartPage />
+              </Suspense>
+            }
+          />
+        </Route>
+      </Route>
 
-    return (
-        <>
-        <div data-testid = {'App.DataTestId'}></div>
-        <div>
-            <h1 data-testid={"Platform"}>PLATFORM = {__PLATFORM__}</h1>
-            <div>
-                <img width={100} height={100} src={pngwing} alt="pngwing" />
-                <img width={100} height={100} src={glaza} alt="glaza" />
-                
-            </div>
-            <div>
-                <Art width={100} height={100}/>
-            </div>
-            <Link to="/about">About</Link>
-            <br/>      
-            <Link to="/shop">Shop</Link>
-            <h1 className={classes.value}>{count}</h1>
-            <button className={classes.button} onClick={increment}><span>Increment</span></button>
-            <About />
-        </div>
-        </>
-    );
+      <Route path="auth" element={<AuthPage />} />
+    </Routes>
+  );
 };
-

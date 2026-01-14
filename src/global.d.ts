@@ -9,7 +9,8 @@ declare module '*.module.scss' {
 declare module '*.png';
 declare module '*.jpg';
 declare module '*.jpeg';
-declare module '*.svg' {
+declare module '*.svg';
+declare module "*.webp"{
     import * as React from 'react';
     const SVG: React.FunctionComponent<React.SVGProps<SVGSVGElement>>;
     export default SVG;
