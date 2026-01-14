@@ -2,7 +2,7 @@ import { Navigate, Outlet } from 'react-router-dom';
 import { useAppSelector } from '@/hooks/redux.hook';
 import { selectIsAuth } from '@/store/auth';
 
-function ProtectedRoute() {
+export const ProtectedRoute = () => {
   const isAuth = useAppSelector(selectIsAuth);
 
   if (!isAuth) {
@@ -11,5 +11,3 @@ function ProtectedRoute() {
 
   return <Outlet />;
 }
-
-export default ProtectedRoute;

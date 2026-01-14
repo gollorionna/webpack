@@ -15,7 +15,7 @@ interface CartItemProps {
   onRemove: (id: number) => void;
 }
 
-function CartItem({ item, onUpdateQuantity, onRemove }: CartItemProps) {
+export const CartItem = ({ item, onUpdateQuantity, onRemove }: CartItemProps) => {
   return (
     <Card
       sx={{
@@ -65,4 +65,3 @@ function CartItem({ item, onUpdateQuantity, onRemove }: CartItemProps) {
   );
 }
 
-export default CartItem;

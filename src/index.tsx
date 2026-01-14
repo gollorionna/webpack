@@ -1,45 +1,45 @@
-import { createRoot } from "react-dom/client";
-import App from "./components/App";
-import { StrictMode } from "react";
-import { ThemeProvider, createTheme } from "@mui/material";
-import { HashRouter } from "react-router-dom";
-import { Provider } from "react-redux";
-import { store } from "./store/store";
+import { createRoot } from 'react-dom/client';
+import { App } from './components/App';
+import { StrictMode } from 'react';
+import { ThemeProvider, createTheme } from '@mui/material';
+import { HashRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { store } from './store/store';
 
 const theme = createTheme({
   palette: {
     primary: {
-      main: "#008000",
+      main: '#008000',
     },
     secondary: {
-      main: "#dc004e",
+      main: '#dc004e',
     },
   },
   typography: {
     h1: {
-      fontSize: "3rem",
+      fontSize: '3rem',
       fontWeight: 600,
     },
     h2: {
-      fontSize: "1.75rem",
+      fontSize: '1.75rem',
       fontWeight: 600,
     },
     h3: {
-      fontSize: "1.5rem",
+      fontSize: '1.5rem',
       fontWeight: 600,
     },
   },
 });
 
-const root = createRoot(document.getElementById("root")!);
+const root = createRoot(document.getElementById('root')!);
 
 root.render(
   <StrictMode>
     <HashRouter>
       <Provider store={store}>
-          <ThemeProvider theme={theme}>
-            <App />
-          </ThemeProvider>
+        <ThemeProvider theme={theme}>
+          <App />
+        </ThemeProvider>
       </Provider>
     </HashRouter>
   </StrictMode>

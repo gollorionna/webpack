@@ -6,13 +6,13 @@ import Paper from '@mui/material/Paper';
 import Divider from '@mui/material/Divider';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { Link } from 'react-router-dom';
-import CartItem from './CartItem';
+import {CartItem} from './CartItem';
 import type { ICartItem } from '@/store/types';
 import { useSelector, useDispatch } from 'react-redux';
 import type { RootState, AppDispatch } from '@/store/store';
 import { clearCart, removeFromCart, addToCart } from '@/store/cart';
 
-function CartPage() {
+export const CartPage = () => {
   const dispatch = useDispatch<AppDispatch>();
   const cart = useSelector((state: RootState) => state.cart.entity);
 
@@ -115,4 +115,3 @@ function CartPage() {
   );
 }
 
-export default CartPage;

@@ -25,7 +25,7 @@ type Product = {
   description: string;
 };
 
-export default function ProductsFurniture() {
+export const ProductsFurniture = () => {
   const [liked, setLiked] = useState<number[]>([]);
   const { data, isLoading, error } = useGetProductsQuery();
   const navigate = useNavigate();

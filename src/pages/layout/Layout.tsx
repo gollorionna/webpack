@@ -68,7 +68,7 @@ const DrawerHeader = styled("div")(({ theme }) => ({
   justifyContent: "flex-end",
 }));
 
-function Layout() {
+export const Layout = () => {
   const [open, setOpen] = useState(false);
   const theme = useTheme();
   const navigate = useNavigate();
@@ -264,4 +264,3 @@ function Layout() {
   );
 }
 
-export default Layout;

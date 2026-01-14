@@ -13,7 +13,7 @@ import { addToCart } from '@/store/cart';
 import { selectIsAuth } from "@/store/auth";
 import { useAppSelector } from '@/hooks/redux.hook';
 
-function ProductCardDetails() {
+export const ProductCardDetails = () => {
   const { id } = useParams<{ id: string }>();
   const productId = id ? parseInt(id, 10) : undefined;
   const { data, isLoading } = useGetProductByIdQuery(productId!);
@@ -95,4 +95,3 @@ function ProductCardDetails() {
   );
 }
 
-export default ProductCardDetails;

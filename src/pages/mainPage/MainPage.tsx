@@ -7,7 +7,7 @@ import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import { useLocation } from "react-router-dom";
 
-export function MainPage() {
+export const MainPage = () => {
   const location = useLocation();
   const isMainPage = location.pathname === "/";
 
@@ -82,4 +82,3 @@ export function MainPage() {
   );
 }
 
-export default MainPage;

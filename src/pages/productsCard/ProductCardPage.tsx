@@ -1,7 +1,7 @@
 import Container from "@mui/material/Container";
-import ProductCard from "./ProductCard";
+import {ProductCard} from "./ProductCard";
 
-export default function ProductCardPage() {
+export const ProductCardPage = () => {
   return (
     <Container
       sx={{

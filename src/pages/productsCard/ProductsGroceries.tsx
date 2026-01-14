@@ -17,7 +17,7 @@ import type { RootState } from '@/store/store';
 import { addToCart } from '@/store/cart';
 import type { IProduct } from '@/store/types';
 
-export default function ProductsGroceries() {
+export const ProductsGroceries = () => {
   const [liked, setLiked] = useState<number[]>([]);
   const { data, isLoading, error } = useGetProductsQuery();
   const navigate = useNavigate();
