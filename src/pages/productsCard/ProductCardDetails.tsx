@@ -14,12 +14,10 @@ import { addToCart } from '@/store/cart';
 export const ProductCardDetails = () => {
   const { id } = useParams<{ id: string }>();
   const productId = id ? parseInt(id, 10) : undefined;
-  const { data, isLoading } = useGetProductByIdQuery(productId!);
+  const { data: products, isLoading } = useGetProductByIdQuery(productId!);
 
   const dispatch = useDispatch();
   const cart = useSelector((state: RootState) => state.cart.entity);
-
-  const products = data;
 
   const isInCart = (id: number) => Boolean(cart?.products?.some((item) => item.id === id));
 

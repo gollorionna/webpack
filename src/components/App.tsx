@@ -5,14 +5,11 @@ import { ProductCardPage } from '@/pages/productsCard/ProductCardPage';
 import { ProductCardDetails } from '@/pages/productsCard/ProductCardDetails';
 import { Layout } from '@/pages/layout/Layout';
 import { MainPage } from '@/pages/mainPage/MainPage';
-import { ProductsBeauty } from '@/pages/productsCard/ProductsBeauty';
-import { ProductsFragrances } from '@/pages/productsCard/ProductsFragrances';
-import { ProductsFurniture } from '@/pages/productsCard/ProductsFurniture';
-import { ProductsGroceries } from '@/pages/productsCard/ProductsGroceries';
 import { LazyCartPage } from '@/pages/cart/CartPage.lazy';
 import { Suspense } from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
 import { ProtectedRoute } from '@/components/protectedRoutes/ProtectedRoute';
+import { ProductCardList } from '@/pages/productsCard/ProductCardList';
 
 export const App = () => {
   return (
@@ -22,11 +19,7 @@ export const App = () => {
 
         <Route path="products">
           <Route index element={<ProductCardPage />} />
-          <Route path="beauty" element={<ProductsBeauty />} />
-          <Route path="fragrances" element={<ProductsFragrances />} />
-          <Route path="furniture" element={<ProductsFurniture />} />
-          <Route path="groceries" element={<ProductsGroceries />} />
-
+          <Route path="category/:category" element={<ProductCardList />} />
           <Route path=":id" element={<ProductCardDetails />} />
         </Route>
 

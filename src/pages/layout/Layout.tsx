@@ -93,6 +93,13 @@ export const Layout = () => {
     navigate("/auth");
   };
 
+  const categories = [
+  { key: 'beauty', label: 'Beauty' },
+  { key: 'fragrances', label: 'Fragrances' },
+  { key: 'furniture', label: 'Furniture' },
+  { key: 'groceries', label: 'Groceries' },
+];
+
   return (
     <Box
       sx={{
@@ -214,11 +221,11 @@ export const Layout = () => {
         </DrawerHeader>
         <Divider />
         <List>
-          {["beauty", "fragrances", "furniture", "groceries"].map((text) => (
-            <ListItem key={text} disablePadding>
+          {categories.map((category) => (
+            <ListItem key={category.key} disablePadding>
               <ListItemButton
                 component={Link}
-                to={`/products/${text}`}
+                to={`/products/category/${category.key}`}
                 onClick={handleDrawerClose}
                 sx={{
                   color: "inherit",
@@ -226,7 +233,7 @@ export const Layout = () => {
                 }}
               >
                 <ListItemText
-                  primary={text.charAt(0).toUpperCase() + text.slice(1)}
+                  primary={category.label}
                 />
               </ListItemButton>
             </ListItem>

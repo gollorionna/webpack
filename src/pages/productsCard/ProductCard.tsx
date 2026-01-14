@@ -18,13 +18,11 @@ import { addToCart } from '@/store/cart';
 
 export const ProductCard = () => {
   const [liked, setLiked] = useState<number[]>([]);
-  const { data, isLoading, error } = useGetProductsQuery();
+  const { data: products, isLoading, error } = useGetProductsQuery();
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
   const cart = useSelector((state: RootState) => state.cart.entity);
-
-  const products = data;
 
   const isInCart = (id: number) => Boolean(cart?.products?.some((item) => item.id === id));
 
